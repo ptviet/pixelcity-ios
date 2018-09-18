@@ -13,7 +13,7 @@
         <!--MapVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapVC" customModule="pixcel_city" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapVC" customModule="pixel_city" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -52,7 +52,7 @@
                                     <action selector="onCenterMapBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hM7-rn-uoD"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K6O-HB-lvt">
+                            <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="K6O-HB-lvt">
                                 <rect key="frame" x="0.0" y="666" width="375" height="1"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -86,6 +86,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="132" y="132.68365817091455"/>
+        </scene>
+        <!--PopVC-->
+        <scene sceneID="EO9-X6-GAV">
+            <objects>
+                <viewController storyboardIdentifier="PopVC" id="XhN-HI-E6V" customClass="PopVC" customModule="pixel_city" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZPJ-1a-e3z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bg3-Ne-fPh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OaQ-2n-3C8">
+                                <rect key="frame" x="87.5" y="622" width="200" height="25"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Double tap to dismiss" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWG-ow-XIp">
+                                        <rect key="frame" x="3" y="-1.5" width="194" height="28"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="MJ6-0O-nQN"/>
+                                    <constraint firstItem="qWG-ow-XIp" firstAttribute="centerY" secondItem="OaQ-2n-3C8" secondAttribute="centerY" id="TLr-Hp-Nbc"/>
+                                    <constraint firstAttribute="width" constant="200" id="arw-BO-QoX"/>
+                                    <constraint firstItem="qWG-ow-XIp" firstAttribute="centerX" secondItem="OaQ-2n-3C8" secondAttribute="centerX" id="oHO-7n-ga4"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Bg3-Ne-fPh" firstAttribute="trailing" secondItem="TJr-40-S3j" secondAttribute="trailing" id="FBr-Rw-c4K"/>
+                            <constraint firstItem="Bg3-Ne-fPh" firstAttribute="leading" secondItem="TJr-40-S3j" secondAttribute="leading" id="Vaw-WD-kRK"/>
+                            <constraint firstItem="Bg3-Ne-fPh" firstAttribute="bottom" secondItem="TJr-40-S3j" secondAttribute="bottom" id="YpA-17-2Sf"/>
+                            <constraint firstItem="Bg3-Ne-fPh" firstAttribute="top" secondItem="ZPJ-1a-e3z" secondAttribute="top" id="c83-p5-uen"/>
+                            <constraint firstItem="TJr-40-S3j" firstAttribute="bottom" secondItem="OaQ-2n-3C8" secondAttribute="bottom" constant="20" id="e7r-f6-8RK"/>
+                            <constraint firstItem="OaQ-2n-3C8" firstAttribute="centerX" secondItem="ZPJ-1a-e3z" secondAttribute="centerX" id="xtn-R4-I4V"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TJr-40-S3j"/>
+                    </view>
+                    <connections>
+                        <outlet property="popImageView" destination="Bg3-Ne-fPh" id="LnQ-RA-Aov"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F2A-UY-Iz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="845.60000000000002" y="132.68365817091455"/>
         </scene>
     </scenes>
     <resources>

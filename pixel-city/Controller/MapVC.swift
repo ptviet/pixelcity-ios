@@ -34,11 +34,20 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
     configureLocationServices()
     addDoubleTap()
     
+    // flowlayout
+    let screenWidth = UIScreen.main.bounds.width
+    flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    flowLayout.itemSize = CGSize(width: screenWidth/5, height: screenWidth/5)
+    flowLayout.minimumInteritemSpacing = 1
+    flowLayout.minimumLineSpacing = 1
     collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: flowLayout)
+    
     collectionView?.register(PhotoCell.self, forCellWithReuseIdentifier: "photoCell")
     collectionView?.delegate = self
     collectionView?.dataSource = self
     collectionView?.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+    
+    registerForPreviewing(with: self, sourceView: collectionView!)
     
     pullUpView.addSubview(collectionView!)
     
@@ -110,154 +119,5 @@ class MapVC: UIViewController, UIGestureRecognizerDelegate {
       centerMapOnUserLocation()
     }
   }
-  
-}
-
-extension MapVC: MKMapViewDelegate {
-  
-  func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    if annotation is MKUserLocation {
-      return nil
-    }
-    
-    let pinAnnotation = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "dropablePin")
-    pinAnnotation.pinTintColor = #colorLiteral(red: 0.9771530032, green: 0.7062081099, blue: 0.1748393774, alpha: 1)
-    pinAnnotation.animatesDrop = true
-    return pinAnnotation
-  }
-  
-  func centerMapOnUserLocation() {
-    guard let coordinate = locationManager.location?.coordinate else { return }
-    let coordinateRegion = MKCoordinateRegion(center: coordinate, latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
-    mapView.setRegion(coordinateRegion, animated: true)
-    
-  }
-  
-  @objc func dropPin(sender: UITapGestureRecognizer) {
-
-    reset()
-    
-    let touchPoint = sender.location(in: mapView)
-    let touchCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-    let annotation = DropablePin(coordinate: touchCoordinate, identifier: "dropablePin")
-    mapView.addAnnotation(annotation)
-    let coordinateRegion = MKCoordinateRegion(center: touchCoordinate, latitudinalMeters: regionRadius * 2.0, longitudinalMeters: regionRadius * 2.0)
-    mapView.setRegion(coordinateRegion, animated: true)
-    
-    retrieveUrls(forAnnotation: annotation) { (success) in
-      if success {
-        self.retrieveImages(completion: { (success) in
-          if success {
-            self.removeSpinner()
-            self.removeProgressLabel()
-            self.collectionView?.reloadData()
-          }
-        })
-        
-      }
-    }
-  }
-  
-  func reset() {
-    cancelAllSessions()
-    removePin()
-    removeSpinner()
-    removeProgressLabel()
-    
-    imageUrlArray.removeAll()
-    imageArray.removeAll()
-    collectionView?.reloadData()
-    
-    animateViewUp()
-    
-    addSwipe()
-    addSpinner()
-    addProgressLabel()
-  }
-  
-  func removePin() {
-    for annotation in mapView.annotations {
-      mapView.removeAnnotation(annotation)
-    }
-  }
-  
-  func retrieveUrls(forAnnotation annotation: DropablePin, completion: @escaping (_ status: Bool) -> () ) {
-    
-    Alamofire.request(flickrUrl(forApiKey: API_KEY, withAnnotation: annotation, andNumberOfPhotos: 20))
-      .responseJSON { (response) in
-        guard let json = response.result.value as? Dictionary<String, AnyObject> else { return }
-        let photosDictionary = json["photos"] as! Dictionary<String, AnyObject>
-        let photosDictionaryArray = photosDictionary["photo"] as! [Dictionary<String, AnyObject>]
-        for photo in photosDictionaryArray {
-          let postUrl = "https://farm\(photo["farm"]!).staticflickr.com/\(photo["server"]!)/\(photo["id"]!)_\(photo["secret"]!)_h_d.jpg"
-          self.imageUrlArray.append(postUrl)
-        }
-        
-        completion(true)
-    }
-  }
-  
-  func retrieveImages(completion: @escaping (_ status: Bool) -> ()) {
-    
-    for url in imageUrlArray {
-      Alamofire.request(url).responseImage { (response) in
-        guard let image = response.result.value else { return }
-        self.imageArray.append(image)
-        self.progressLabel?.text = "\(self.imageArray.count)/\(self.imageUrlArray.count) photos downloaded..."
-        
-        if self.imageArray.count == self.imageUrlArray.count {
-          completion(true)
-        }
-        
-      }
-    }
-  }
-  
-  func cancelAllSessions() {
-    Alamofire.SessionManager.default.session.getTasksWithCompletionHandler { (sessionDataTask, uploadData, downloadData) in
-      sessionDataTask.forEach({$0.cancel()})
-      uploadData.forEach({$0.cancel()})
-      downloadData.forEach({$0.cancel()})
-    }
-  }
-  
-}
-
-extension MapVC: CLLocationManagerDelegate {
-  
-  func configureLocationServices() {
-    if authStatus == .notDetermined {
-      locationManager.requestAlwaysAuthorization()
-    } else {
-      return
-    }
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    centerMapOnUserLocation()
-  }
-  
-}
-
-extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource {
-  
-  func numberOfSections(in collectionView: UICollectionView) -> Int {
-    return 1
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return imageArray.count
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as? PhotoCell else { return UICollectionViewCell()}
-    
-    let imageFromIndex = imageArray[indexPath.row]
-    let imageView = UIImageView(image: imageFromIndex)
-    cell.addSubview(imageView)
-    
-    return cell
-  }
-  
   
 }

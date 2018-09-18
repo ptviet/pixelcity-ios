@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4B2BA1EF214F507C0063C674 /* DropablePin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B2BA1EE214F507C0063C674 /* DropablePin.swift */; };
+		4B3E718721507693007F97EF /* PopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E718621507693007F97EF /* PopVC.swift */; };
+		4B3E7189215082BD007F97EF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3E7188215082BD007F97EF /* Extensions.swift */; };
 		4BAD9E7F214F332C0016868B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD9E7E214F332C0016868B /* AppDelegate.swift */; };
 		4BAD9E81214F332C0016868B /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BAD9E80214F332C0016868B /* MapVC.swift */; };
 		4BAD9E84214F332C0016868B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4BAD9E82214F332C0016868B /* Main.storyboard */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		4B2BA1EE214F507C0063C674 /* DropablePin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropablePin.swift; sourceTree = "<group>"; };
+		4B3E718621507693007F97EF /* PopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopVC.swift; sourceTree = "<group>"; };
+		4B3E7188215082BD007F97EF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4BAD9E7B214F332C0016868B /* pixel-city.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "pixel-city.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BAD9E7E214F332C0016868B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4BAD9E80214F332C0016868B /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -94,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				4BAD9E80214F332C0016868B /* MapVC.swift */,
+				4B3E718621507693007F97EF /* PopVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 		4BAD9E93214F33740016868B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				4B3E7188215082BD007F97EF /* Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -251,11 +257,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B3E718721507693007F97EF /* PopVC.swift in Sources */,
 				4BC7E1DF214F64AF0078F730 /* Constants.swift in Sources */,
 				4BC7E1DD214F607B0078F730 /* PhotoCell.swift in Sources */,
 				4BAD9E81214F332C0016868B /* MapVC.swift in Sources */,
 				4B2BA1EF214F507C0063C674 /* DropablePin.swift in Sources */,
 				4BAD9E7F214F332C0016868B /* AppDelegate.swift in Sources */,
+				4B3E7189215082BD007F97EF /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
